@@ -8,9 +8,22 @@ char postfix[100];
 int x=-1;
 void pop(char b)
 {
+  char c;
+  if(b==')')
+  {
+    while(a[top]!='(')
+    {
+      c=a[top];
+      top--;
+      postfix[++x]=c;
+      postfix[++x]=' ';
+    }
+    top--;
+    return;
+  }
   while(a[top]==b||a[top]=='/'||a[top]=='*')
   {
-    char c=a[top];
+    c=a[top];
     top--;
     postfix[++x]=c;
     postfix[++x]=' ';
@@ -31,6 +44,14 @@ void push(char b)
 void infix_to_postfix(char b)
 {
   if(b==' '||b==',') return;
+  else if(b=='(')
+  {
+    a[++top]=b;
+  }
+  else if(b==')')
+  {
+    pop(b);
+  }
   else if(isoperator(b))
   {
     if(a[top]==b||a[top]=='/'||a[top]=='*')
