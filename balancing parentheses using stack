@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include<string.h>
+#include<conio.h>
+int top=-1;
+char c[100];
+int balanced_parentheses(char b)
+{
+    if((b=='{')||(b=='[')||(b=='('))
+    {
+        c[++top]=b;
+        return 1;
+    }
+    else if((b=='}')||(b==']')||(b==')'))
+    {
+        if((b=='}'&&c[top]=='{')||(b==')'&&c[top]=='(')||(b==']'&&c[top]=='['))
+        {
+            top--;
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+      return 2;
+    }
+}
+int main()
+{
+    char a[100];
+    printf("enter the expression:\n");
+    gets(a);
+    int i;
+    int d;
+    for(i=0;i<strlen(a);i++)
+    {
+        d=balanced_parentheses(a[i]);
+        if(d==0)
+        {
+            printf("the given expression is unbalanced");
+            exit(0);
+        }
+        else if(d==2)
+        {
+          printf("irregular expression");
+          exit(0);
+        }
+    }
+    if(top==-1&&strlen(a)!=0) printf("the given expression is balanced");
+    else if(strlen(a)==0) printf("you had not entered an expressiion");
+    else printf("the given expression is unbalanced");
+    return 0;
+}
