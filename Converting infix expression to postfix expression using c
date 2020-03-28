@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<stdlib.h>
+char a[100];
+int top=-1;
+char postfix[100];
+int x=-1;
+void pop(char b)
+{
+  while(a[top]==b||a[top]=='/'||a[top]=='*')
+  {
+    char c=a[top];
+    top--;
+    postfix[++x]=c;
+    postfix[++x]=' ';
+  }
+}
+int isoperator(char a)
+{
+  if(a=='+'||a=='-'||a=='*'||a=='/')
+  {
+    return 1;
+  }
+  return 0;
+}
+void push(char b)
+{
+  a[++top]=b;
+}
+void infix_to_postfix(char b)
+{
+  if(b==' '||b==',') return;
+  else if(isoperator(b))
+  {
+    if(a[top]==b||a[top]=='/'||a[top]=='*')
+    {
+      pop(b);
+      push(b);
+    }
+    else
+    {
+      push(b);
+    }
+  }
+  else
+  {
+    postfix[++x]=b;
+    postfix[++x]=' ';
+  }
+}
+int main()
+{
+  char arr[100];
+  printf("Enter the infix expression :\n");
+  gets(arr);
+  for(int i=0;i<strlen(arr);i++)
+  {
+    infix_to_postfix(arr[i]);
+  }
+  while(top!=-1)
+  {
+    char c=a[top];
+    top--;
+    postfix[++x]=c;
+    postfix[++x]=' ';
+  }
+  printf("The postfix expression is :");
+  puts(postfix);
+  return 0;
+}
